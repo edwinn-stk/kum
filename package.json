@@ -1,0 +1,1 @@
+{ "name": "caso35-kumbu", "version": "1.0.0", "private": true, "scripts": { "start": "node km-server.js" }, "engines": { "node": ">=18" } }

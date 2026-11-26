@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="sw">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kumbu · Picha zako</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#15172A;--plum:#33204A;--teal:#109C97;--mango:#F4A322;--coral:#E9604A;--bg:#F5F6FA;--line:#E1E3EC;--soft:#626780;--card:#fff}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Figtree,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.5}
+button{font:inherit;cursor:pointer}a{color:inherit}
+:focus-visible{outline:3px solid var(--mango);outline-offset:2px}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.side{background:var(--plum);color:#fff;padding:22px 16px;display:flex;flex-direction:column;gap:6px}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:28px;display:flex;align-items:center;gap:10px;margin:0 8px 22px;letter-spacing:-.02em}
+.logo i{width:30px;height:30px;border-radius:9px;background:conic-gradient(from 200deg,var(--mango),var(--coral),var(--teal),var(--mango));display:inline-block;position:relative}
+.logo i:after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--plum)}
+.side a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;font-weight:500;color:rgba(255,255,255,.8)}
+.side a.on{background:rgba(255,255,255,.12);color:#fff}
+.side a svg{width:20px;height:20px;flex:none}
+.store{margin-top:auto;background:rgba(255,255,255,.08);border-radius:14px;padding:14px;font-size:14px}
+.store .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.15);margin:8px 0;overflow:hidden}
+.store .bar b{display:block;height:100%;background:linear-gradient(90deg,var(--mango),var(--coral));border-radius:99px}
+.store small{color:rgba(255,255,255,.7)}
+.main{padding:28px 34px 60px;min-width:0}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.top h1{font-family:"Bricolage Grotesque",sans-serif;font-size:34px;line-height:1.1;margin:0;letter-spacing:-.02em}
+.top .me{margin-left:auto;display:flex;align-items:center;gap:10px;font-weight:600}
+.top .me span{width:36px;height:36px;border-radius:50%;background:var(--teal);display:grid;place-items:center}
+.lead{color:var(--soft);margin:-14px 0 24px}
+.albums{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.alb{background:var(--card);border-radius:18px;border:1px solid var(--line);overflow:hidden}
+.alb .cov{height:150px;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:3px}
+.alb .cov span:first-child{grid-row:1/3}
+.alb .cov.empty{display:grid;place-items:center;background:repeating-linear-gradient(45deg,#F0F1F6 0 10px,#F7F8FB 10px 20px);color:var(--soft);font-size:14px;grid-template-columns:1fr}
+.alb div.t{padding:12px 14px}
+.alb b{display:block;font-weight:600}.alb small{color:var(--soft)}
+h2{font-family:"Bricolage Grotesque",sans-serif;font-size:22px;margin:34px 0 14px;letter-spacing:-.01em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px}
+.grid span{aspect-ratio:1;border-radius:8px}
+.ph{position:relative;overflow:hidden}
+.ph:after{content:"";position:absolute;width:38%;height:38%;border-radius:50%;right:14%;top:14%;background:rgba(255,255,255,.55)}
+.ph:before{content:"";position:absolute;left:-10%;right:-10%;bottom:-18%;height:55%;border-radius:50% 50% 0 0;background:rgba(0,0,0,.18)}
+.devs{display:grid;gap:14px;max-width:760px}
+.dev{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.dev .ic{width:48px;height:64px;border-radius:10px;border:3px solid var(--ink);position:relative;flex:none}
+.dev .ic:after{content:"";position:absolute;left:50%;bottom:4px;width:10px;height:3px;border-radius:2px;background:var(--ink);transform:translateX(-50%)}
+.dev b{font-size:18px;display:block}.dev small{color:var(--soft);display:block}
+.dev .st{font-size:13px;font-weight:600;padding:3px 10px;border-radius:99px;background:#DDF3F1;color:#0B6B67}
+.dev .st.old{background:#F0F1F6;color:var(--soft)}
+.dev .r{margin-left:auto;display:flex;gap:10px;align-items:center}
+.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 16px;font-weight:600;color:var(--ink)}
+.btn.rm{color:#A3321F;border-color:#F0C9C0}
+.note{color:var(--soft);font-size:14px;margin-top:14px;max-width:760px}
+.hidden{display:none!important}
+.chat{position:fixed;right:0;top:0;bottom:0;width:min(440px,100%);background:#fff;box-shadow:-20px 0 60px rgba(21,23,42,.2);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .25s ease;z-index:50}
+.chat.open{transform:none}
+.ch{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.ch .av{width:40px;height:40px;border-radius:12px;background:conic-gradient(from 200deg,var(--mango),var(--coral),var(--teal),var(--mango));position:relative}
+.ch .av:after{content:"";position:absolute;inset:11px;border-radius:50%;background:#fff}
+.ch b{display:block}.ch small{color:var(--soft)}
+.ch button{margin-left:auto;border:0;background:var(--bg);border-radius:10px;width:36px;height:36px;font-size:20px}
+.log{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:10px;background:#FAFAFC}
+.b{max-width:88%;padding:10px 13px;border-radius:16px;font-size:15px;white-space:pre-wrap;word-wrap:break-word}
+.b.kumbu{background:#fff;border:1px solid var(--line);border-bottom-left-radius:5px;align-self:flex-start}
+.b.kumbu.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:#F3F1F8;border-color:#E2DDEE;line-height:1.55}
+.b.you{background:var(--plum);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+.qr{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start}
+.qr button{border:1px solid var(--teal);background:#fff;color:#0B6B67;border-radius:99px;padding:7px 14px;font-weight:600;font-size:14px}
+.typing{align-self:flex-start;color:var(--soft);font-size:14px;display:none}
+.cf{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.cf textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;font-size:15px;height:46px}
+.cf button{border:0;background:var(--plum);color:#fff;border-radius:12px;padding:0 16px;font-weight:600}
+@media (max-width:800px){.app{grid-template-columns:1fr}.side{flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}.logo{margin:0 10px 0 4px;font-size:22px}.store{display:none}.main{padding:22px 16px 50px}.top .me{margin-left:0}}
+@media (prefers-reduced-motion:reduce){.chat{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo"><i></i>kumbu</div>
+    <a href="#picha" data-v="picha" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>Picha</a>
+    <a href="#vifaa" data-v="vifaa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>Vifaa</a>
+    <div class="store"><b>Hifadhi</b><div class="bar"><b id="sbar" style="width:62%"></b></div><small id="stext">GB 31 kati ya 50 zimetumika</small></div>
+  </aside>
+  <main class="main">
+    <section id="v-picha">
+      <div class="top"><h1>Picha zako</h1><div class="me"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span>{{USER}}</div></div>
+      <p class="lead"><span id="total">Picha 6,240</span> zimehifadhiwa salama kutoka kwa vifaa vyako.</p>
+      <div class="albums" id="albums"></div>
+      <h2>Za hivi karibuni</h2>
+      <div class="grid" id="recent"></div>
+    </section>
+    <section id="v-vifaa" class="hidden">
+      <div class="top"><h1>Vifaa</h1><div class="me"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span>{{USER}}</div></div>
+      <p class="lead">Vifaa vinavyohifadhi picha kwenye akaunti yako.</p>
+      <div class="devs">
+        <div class="dev"><span class="ic"></span><div><b>Samsung Galaxy A54</b><small>Kifaa hiki · Dar es Salaam · picha 1,428 zimehifadhiwa</small></div><div class="r"><span class="st">Kinatumika</span></div></div>
+        <div class="dev" id="tecno"><span class="ic"></span><div><b>Tecno Spark 8</b><small>Kilionekana mara ya mwisho miezi 3 iliyopita · picha 4,812 zimehifadhiwa</small></div><div class="r"><span class="st old">Hakitumiki</span><button class="btn rm" id="rmBtn" type="button">Ondoa</button></div></div>
+      </div>
+      <p class="note">Kuondoa au kutoka kwenye kifaa hufanywa kupitia msaidizi wa Kumbu.</p>
+    </section>
+  </main>
+</div>
+
+<aside class="chat" id="chat" aria-label="Msaidizi wa Kumbu">
+  <div class="ch"><span class="av"></span><div><b>Kumbu</b><small>Msaidizi wa AI</small></div><button id="closeChat" type="button" aria-label="Funga">×</button></div>
+  <div class="log" id="log"><div class="typing" id="typing">Kumbu anaandika…</div></div>
+  <form class="cf" id="cf"><textarea id="msg" placeholder="Andika ujumbe" aria-label="Ujumbe"></textarea><button type="submit">Tuma</button></form>
+</aside>
+
+<script>
+var SID = (function () { var k = "km_sid", v = null; try { v = sessionStorage.getItem(k); } catch (e) {}
+  if (!v) { v = "S-" + Math.random().toString(36).slice(2, 8).toUpperCase(); try { sessionStorage.setItem(k, v); } catch (e) {} } return v; })();
+function post(u, b) { b.sid = SID; return fetch(u, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(b) }).then(function (r) { return r.json(); }); }
+function track(p) { post("/api/track", { page: p }).catch(function () {}); }
+function $(id) { return document.getElementById(id); }
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+var PAL = [["#F4A322","#E9604A"],["#109C97","#2E5E8C"],["#E9604A","#33204A"],["#7FB069","#109C97"],["#F6C77A","#C2553F"],["#5C8DD6","#33204A"],["#E7A1B0","#8E3B5A"],["#2E8B57","#F4A322"]];
+var seed = 7; function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+function tile() { var p = PAL[Math.floor(rnd() * PAL.length)]; return '<span class="ph" style="background:linear-gradient(' + Math.floor(rnd() * 360) + 'deg,' + p[0] + ',' + p[1] + ')"></span>'; }
+var ALB = [["Harusi ya Neema 2023", 1206, 412], ["Amani – mwaka wa kwanza", 2318, 0], ["Zanzibar 2024", 874, 318], ["Kazi na marafiki", 1842, 698]];
+function render(removed) {
+  seed = 7;
+  $("albums").innerHTML = ALB.map(function (a) {
+    var c = removed ? a[2] : a[1];
+    return '<div class="alb"><div class="cov' + (c ? "" : " empty") + '">' + (c ? tile() + tile() + tile() : "Albamu tupu") + '</div><div class="t"><b>' + a[0] + "</b><small>picha " + c.toLocaleString("en-US") + "</small></div></div>";
+  }).join("");
+  var h = ""; for (var i = 0; i < 18; i++) h += tile(); $("recent").innerHTML = h;
+  $("total").textContent = "Picha " + (removed ? "1,428" : "6,240");
+  $("sbar").style.width = removed ? "15%" : "62%"; $("stext").textContent = removed ? "GB 7 kati ya 50 zimetumika" : "GB 31 kati ya 50 zimetumika";
+  $("tecno").classList.toggle("hidden", !!removed);
+}
+function view(v) {
+  ["picha", "vifaa"].forEach(function (x) { $("v-" + x).classList.toggle("hidden", x !== v); });
+  document.querySelectorAll(".side a").forEach(function (a) { a.classList.toggle("on", a.dataset.v === v); });
+  track(v);
+}
+document.querySelectorAll(".side a").forEach(function (a) { a.onclick = function (e) { e.preventDefault(); view(a.dataset.v); }; });
+
+function bubble(m) {
+  var d = document.createElement("div"); d.className = "b " + (m.from === "you" ? "you" : "kumbu" + (m.mono ? " mono" : ""));
+  d.textContent = m.text; $("log").insertBefore(d, $("typing"));
+  if (m.buttons && m.from !== "you") {
+    var q = document.createElement("div"); q.className = "qr";
+    m.buttons.forEach(function (t) { var b = document.createElement("button"); b.type = "button"; b.textContent = t; b.onclick = function () { q.remove(); sendMsg(t); }; q.appendChild(b); });
+    $("log").insertBefore(q, $("typing"));
+  }
+  $("log").scrollTop = 1e6;
+}
+function refresh() { fetch("/api/state?sid=" + SID).then(function (r) { return r.json(); }).then(function (r) { render(r.removed); }); }
+function openChat() {
+  $("chat").classList.add("open"); track("chat_open");
+  post("/api/chat/open", {}).then(function (r) {
+    $("log").querySelectorAll(".b,.qr").forEach(function (n) { n.remove(); });
+    r.chat.forEach(function (m, i) { bubble(i === r.chat.length - 1 ? m : Object.assign({}, m, { buttons: null })); });
+  });
+  setTimeout(function () { $("msg").focus(); }, 250);
+}
+function sendMsg(t) {
+  $("log").querySelectorAll(".qr").forEach(function (n) { n.remove(); });
+  bubble({ from: "you", text: t }); $("typing").style.display = "block";
+  post("/api/chat", { text: t }).then(function (r) {
+    var wait = 700;
+    r.replies.forEach(function (m, i) {
+      wait += m.delay || (i ? 500 : 0);
+      setTimeout(function () { bubble(m); if (i === r.replies.length - 1) { $("typing").style.display = "none"; refresh(); } }, wait);
+    });
+    if (!r.replies.length) $("typing").style.display = "none";
+  });
+}
+$("rmBtn").onclick = function () { track("ondoa_tecno (opens Kumbu)"); openChat(); };
+$("closeChat").onclick = function () { $("chat").classList.remove("open"); };
+$("cf").onsubmit = function (e) { e.preventDefault(); var t = $("msg").value.trim(); if (!t) return; $("msg").value = ""; sendMsg(t); };
+$("msg").addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("cf").requestSubmit(); } });
+if (location.hash === "#vifaa") view("vifaa"); else track("picha");
+refresh();
+</script>
+</body>
+</html>
